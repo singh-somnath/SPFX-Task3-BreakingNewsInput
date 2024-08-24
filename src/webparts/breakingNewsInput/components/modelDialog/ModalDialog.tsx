@@ -18,7 +18,7 @@ const ModalDialog = (props:IModalDialog): JSX.Element  =>{
     
    
     return(
-        <div>
+        <>
           <Dialog
             dialogContentProps={dialogContentProps}
             hidden={open}
@@ -39,7 +39,7 @@ const ModalDialog = (props:IModalDialog): JSX.Element  =>{
           >
             {children}
           </Dialog>
-        </div>
+        </>
 
     )
 
