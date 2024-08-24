@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "breaking-news-input-client-side-solution",
+    "id": "fdbd5c5a-2117-49a8-92b0-99972050d534",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.18.2"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "breaking-news-input description"
+      },
+      "longDescription": {
+        "default": "breaking-news-input description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "breaking-news-input Feature",
+        "description": "The feature that activates elements of the breaking-news-input solution.",
+        "id": "21776a11-5b22-48bf-b9b4-4e5e92d6d6c9",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/breaking-news-input.sppkg"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/config.2.0.schema.json",
+  "version": "2.0",
+  "bundles": {
+    "breaking-news-input-web-part": {
+      "components": [
+        {
+          "entrypoint": "./lib/webparts/breakingNewsInput/BreakingNewsInputWebPart.js",
+          "manifest": "./src/webparts/breakingNewsInput/BreakingNewsInputWebPart.manifest.json"
+        }
+      ]
+    }
+  },
+  "externals": {},
+  "localizedResources": {
+    "BreakingNewsInputWebPartStrings": "lib/webparts/breakingNewsInput/loc/{locale}.js",
+    "ControlStrings": "node_modules/@pnp/spfx-controls-react/lib/loc/{locale}.js"
+  }
+}
