@@ -56,8 +56,11 @@ const stackItemStyles: IStackItemStyles = {
         textTransform: 'capitalize'
     }
 };
-
+interface IPageItem {
+    ID: number;
+  }
 const PostForm = (props:IPostType): JSX.Element  =>{
+    const breakingNewsContentTypeID = "0x0101009D1CB255DA76424F860D91F20E6C411800EE750E898C72014899C94BFCBA61CA3F";
     const [selectedOtion, setSelectedOption] = React.useState<string | undefined>('no');
     const [selecteDrpOption, setSelectedDrpOption] = React.useState<IDropdownOption>();
     const [isInvlidOption,setIsInvalidOption] = useState(false);
@@ -80,14 +83,14 @@ const PostForm = (props:IPostType): JSX.Element  =>{
           setOptions(options);
 
           spContext.web.lists.getByTitle("Disasters").items
-          .select("Title")()
+          .select("Title","ID")()
           .then((items)=>{
                const disasterOptions: IDropdownOption[]=[];              
                const uniqueTitles = new Set<string>();
                items.forEach((item)=>{
                   if (!uniqueTitles.has(item.Title)) {
                       uniqueTitles.add(item.Title);
-                      disasterOptions.push({ key: item.Title, text: item.Title });
+                      disasterOptions.push({ key: item.ID, text: item.Title });
                   }
                });    
                setDisasterOptions(disasterOptions);
@@ -96,7 +99,7 @@ const PostForm = (props:IPostType): JSX.Element  =>{
           });
 
           spContext.web.lists.getByTitle("Response Tracker").items
-          .select("Title")
+          .select("Title","ID")
           .filter("ContentType ne 'Response Re-declaration (for closed responses)' and ContentType ne 'Response Re-declaration (for active responses)' and ContentType ne 'Response Undeclaration'")()
           .then((items)=>{
             console.log(items);
@@ -105,7 +108,7 @@ const PostForm = (props:IPostType): JSX.Element  =>{
                items.forEach((item)=>{
                   if (!uniqueTitles.has(item.Title)) {
                       uniqueTitles.add(item.Title);
-                      responseOptions.push({ key: item.Title, text: item.Title });
+                      responseOptions.push({ key: item.ID, text: item.Title });
                   }
                });    
                setResponseOptions(responseOptions);
@@ -152,7 +155,7 @@ const PostForm = (props:IPostType): JSX.Element  =>{
                 try{
                     setIsSubmitting(true);
                     await spContext.web.getFileByServerRelativePath(sourceFileUrl).copyTo(destinationFileUrl, true);
-                    const pageItem:any = await spContext.web.getFileByServerRelativePath(destinationFileUrl).getItem();
+                    const pageItem:IPageItem = await spContext.web.getFileByServerRelativePath(destinationFileUrl).getItem();
                     console.log("pageItem",pageItem.ID,destinationFileUrl);                  
                     
                     const page: IClientsidePage =  await ClientsidePageFromFile(spContext.web.getFileByServerRelativePath(destinationFileUrl));
@@ -161,8 +164,9 @@ const PostForm = (props:IPostType): JSX.Element  =>{
                     await page.disableComments();
 
                     const result = await spContext.web.lists.getByTitle('Site Pages').items.getById(pageItem.ID).update({
-                        "Disaster" : selectedOtion === 'yes'? selecteDrpOption.key : null,
-                        "Response" : selectedOtion === 'no'? selecteDrpOption.key : null
+                        "Disaster0Id" : selectedOtion === 'yes'? selecteDrpOption.key : null,
+                        "Response0Id" : selectedOtion === 'no'? selecteDrpOption.key : null,
+                        "ContentTypeId": breakingNewsContentTypeID
                     });
                                         
                     setIsSubmitting(false);
